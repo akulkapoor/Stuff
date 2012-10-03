@@ -41,32 +41,32 @@ body{
 	color:white;
 }  
 
-#results {
+.results {
 	padding-top: 50px;
 	font-size: 25px;
 	overflow: auto;
 	max-height: 600px;
 }
 
-#results .artist {
+.results .artist {
 	clear: both;
 	margin-bottom: 150px;
 }
 
-#results .img{
+.results .img{
 	padding-right: 30px;
 	-webkit-border-radius: 40px;
 	border-radius: 5px;
 	float: right;
 }
 
-#results .img img{
+.results .img img{
 	-webkit-border-radius: 40px;
 	border-radius: 10px;
 	max-height: 150px;
 }
 
-#results .link a{	
+.results .link a{	
 	position: relative;
 	float: left;
 	color: white;
