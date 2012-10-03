@@ -1,9 +1,12 @@
 var data1;
 var data2;
+
 onReady = function() {
+	$('#menu').tabify();
 		}
 
 		doSearch = function() {
+//----------------------Get Similar Local Artists-----------------------
 			$.getJSON('http://ws.audioscrobbler.com/2.0/',
 			{
 				method: "artist.getSimilar",
@@ -58,10 +61,13 @@ onReady = function() {
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
 						$("#results").append(artist);
+						$("#similarArtists").append($("#results"))
 					}
 				});
 			});
 		});
+
+
 	}
 
 

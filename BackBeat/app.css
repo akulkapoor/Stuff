@@ -37,6 +37,9 @@ body{
 #search input[type="text"]:focus {
     width: 300px;
     }
+#search h1{
+	color:white;
+}  
 
 #results {
 	padding-top: 50px;
