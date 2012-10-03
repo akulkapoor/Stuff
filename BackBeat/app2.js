@@ -2,7 +2,12 @@
 
 onReady = function() {
 	$('#menu').tabify();
-	document.getElementById('results').addEventListener('click',toggleArtist,false)
+
+	$("img").live("click", function(){
+		var bigPic = $(this).attr("data-big");
+		console.log("JAHDEWHFAWEG");
+	});
+	
 		}
 
 		doSearch = function() {
@@ -13,6 +18,8 @@ onReady = function() {
 
 
 	}
+
+
 
 allShows=function(){
 
@@ -39,6 +46,8 @@ var data1;
 						artist.className = "artist";
 						artist.id = item.artists.artist;
 
+						
+
 						var img = document.createElement("div");
 						img.className = "img";
 						img.innerHTML = "<img src=" + item.image[3]["#text"] + ">"
@@ -62,7 +71,7 @@ var data1;
 		});
 }
 
-simLocArts=function(){
+simArts=function(){
 
 var data1;
 
@@ -89,7 +98,7 @@ var data1;
 
 						var img = document.createElement("div");
 						img.className = "img";
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + ">"
+						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big =" + item.image[4]["#text"] +  ">"
 
 						var link = document.createElement("div");
 						link.className = "link";
@@ -110,7 +119,7 @@ var data1;
 		});
 }
 
-simArts=function(){
+simLocArts=function(){
 
 var data1;
 var data2;
@@ -152,11 +161,12 @@ var data2;
 						artist.className = "artist";
 						artist.id = item.name;
 
+
 						var img = document.createElement("div");
 						img.className = "img";
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + ">"
+						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big =" + item.image[4]["#text"] +  ">"
 
-						/*var link = document.createElement("div");
+						var link = document.createElement("div");
 						link.className = "link";
 						if (item.url.slice(0,7) !== "http://") {
 							link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
@@ -164,7 +174,7 @@ var data2;
 						else {
 							link.innerHTML = "<a href='" + item.url + "'>" + item.name + "</a>";
 						}
-						artist.appendChild(link); */
+						artist.appendChild(link); 
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
 						$("#results1").append(artist);
