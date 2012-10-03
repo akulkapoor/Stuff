@@ -2,6 +2,7 @@
 
 onReady = function() {
 	$('#menu').tabify();
+	document.getElementById('results').addEventListener('click',toggleArtist,false)
 		}
 
 		doSearch = function() {
@@ -155,7 +156,7 @@ var data2;
 						img.className = "img";
 						img.innerHTML = "<img src=" + item.image[3]["#text"] + ">"
 
-						var link = document.createElement("div");
+						/*var link = document.createElement("div");
 						link.className = "link";
 						if (item.url.slice(0,7) !== "http://") {
 							link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
@@ -163,7 +164,7 @@ var data2;
 						else {
 							link.innerHTML = "<a href='" + item.url + "'>" + item.name + "</a>";
 						}
-						artist.appendChild(link);
+						artist.appendChild(link); */
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
 						$("#results1").append(artist);
@@ -173,6 +174,13 @@ var data2;
 			});
 		});
 }
+
+	toggleArtist = function(e) {
+		var parent = e.target.parentNode;
+    	if (parent.className === "artist") {
+    		parent.className = "artistRevealed";
+    	}
+    }
 
 
 $(document).ready(onReady);
