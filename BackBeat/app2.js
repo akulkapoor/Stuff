@@ -1,20 +1,33 @@
-
+var data1;
+var data2;
 
 onReady = function() {
 	$('#menu').tabify();
+<<<<<<< HEAD
 
 	$("img").live("click", function(){
 		var bigPic = $(this).attr("data-big");
 		console.log("JAHDEWHFAWEG");
 	});
 	
+=======
+	$('img').live("click",function(){
+		$('#picture').html('')
+		var big = $(this).attr("data-big");
+		var band = $(this).attr("band");
+		$('#picture').append(band +"<br>");
+		$('#picture').append("<img src = " + big + ">");
+		$("#picture").attr('class', 'show');
+	});
+>>>>>>> Picture Clicking works
 		}
 
 		doSearch = function() {
-
+			$('#picture').html('')
 			simArts();
 			simLocArts();
 			allShows();
+			$("#picture").attr('class', 'hidden');
 
 
 	}
@@ -50,7 +63,7 @@ var data1;
 
 						var img = document.createElement("div");
 						img.className = "img";
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + ">"
+						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[3]["#text"] + " band=" + item.artists.artist + ">"
 
 						var link = document.createElement("div");
 						link.className = "link";
@@ -98,7 +111,11 @@ var data1;
 
 						var img = document.createElement("div");
 						img.className = "img";
+<<<<<<< HEAD
 						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big =" + item.image[4]["#text"] +  ">"
+=======
+						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>"
+>>>>>>> Picture Clicking works
 
 						var link = document.createElement("div");
 						link.className = "link";
@@ -164,7 +181,11 @@ var data2;
 
 						var img = document.createElement("div");
 						img.className = "img";
+<<<<<<< HEAD
 						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big =" + item.image[4]["#text"] +  ">"
+=======
+						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>"
+>>>>>>> Picture Clicking works
 
 						var link = document.createElement("div");
 						link.className = "link";
@@ -174,7 +195,11 @@ var data2;
 						else {
 							link.innerHTML = "<a href='" + item.url + "'>" + item.name + "</a>";
 						}
+<<<<<<< HEAD
 						artist.appendChild(link); 
+=======
+						artist.appendChild(link);
+>>>>>>> Picture Clicking works
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
 						$("#results1").append(artist);
