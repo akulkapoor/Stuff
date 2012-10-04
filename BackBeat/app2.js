@@ -3,14 +3,6 @@ var data2;
 
 onReady = function() {
 	$('#menu').tabify();
-<<<<<<< HEAD
-
-	$("img").live("click", function(){
-		var bigPic = $(this).attr("data-big");
-		console.log("JAHDEWHFAWEG");
-	});
-	
-=======
 	$('img').live("click",function(){
 		$('#picture').html('')
 		var big = $(this).attr("data-big");
@@ -19,9 +11,16 @@ onReady = function() {
 		$('#picture').append("<img src = " + big + ">");
 		$("#picture").attr('class', 'show');
 	});
->>>>>>> Picture Clicking works
-		}
-
+	$('.link').live("click",function(){
+		$('#picture').html('')
+		console.log(this);
+		var big = $(this.innerHTML).attr("data-big");
+		var band = $(this.innerHTML).attr("band");
+		$('#picture').append(band +"<br>");
+		$('#picture').append("<img src = " + big + ">");
+		$("#picture").attr('class', 'show');
+	});
+}
 		doSearch = function() {
 			$('#picture').html('')
 			simArts();
@@ -31,8 +30,6 @@ onReady = function() {
 
 
 	}
-
-
 
 allShows=function(){
 
@@ -59,8 +56,6 @@ var data1;
 						artist.className = "artist";
 						artist.id = item.artists.artist;
 
-						
-
 						var img = document.createElement("div");
 						img.className = "img";
 						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[3]["#text"] + " band=" + item.artists.artist + ">"
@@ -69,6 +64,7 @@ var data1;
 						link.className = "link";
 						if (item.url.slice(0,7) !== "http://") {
 							link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.artists.artist + "</a>";
+							//link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.artists.artist + "</a>";
 						}
 						else {
 							link.innerHTML = "<a href='" + item.url + "'>" + item.artists.artist + "</a>";
@@ -111,20 +107,19 @@ var data1;
 
 						var img = document.createElement("div");
 						img.className = "img";
-<<<<<<< HEAD
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big =" + item.image[4]["#text"] +  ">"
-=======
 						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>"
->>>>>>> Picture Clicking works
 
 						var link = document.createElement("div");
 						link.className = "link";
-						if (item.url.slice(0,7) !== "http://") {
-							link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
-						}
-						else {
-							link.innerHTML = "<a href='" + item.url + "'>" + item.name + "</a>";
-						}
+						//if (item.url.slice(0,7) !== "http://") {
+							//link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
+							link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</div>";
+							
+						//}
+						//else {
+							//link.innerHTML = "<a href='" + item.url + "'>" + item.name + "</a>";
+						//	link.innerHTML = "<div id=" + item.name  + " data-big=" + item.image[4]["#text"] + " band='" + item.name +">" + item.name + "</div>";
+						//}
 						artist.appendChild(link);
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
@@ -178,28 +173,20 @@ var data2;
 						artist.className = "artist";
 						artist.id = item.name;
 
-
 						var img = document.createElement("div");
 						img.className = "img";
-<<<<<<< HEAD
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big =" + item.image[4]["#text"] +  ">"
-=======
 						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>"
->>>>>>> Picture Clicking works
 
 						var link = document.createElement("div");
 						link.className = "link";
 						if (item.url.slice(0,7) !== "http://") {
-							link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
+							link.innerHTML = "<a href='" + item.url + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</a>";
+							//link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
 						}
 						else {
-							link.innerHTML = "<a href='" + item.url + "'>" + item.name + "</a>";
+							link.innerHTML = "<a href='" + item.url + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</a>";
 						}
-<<<<<<< HEAD
-						artist.appendChild(link); 
-=======
 						artist.appendChild(link);
->>>>>>> Picture Clicking works
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
 						$("#results1").append(artist);
@@ -209,13 +196,6 @@ var data2;
 			});
 		});
 }
-
-	toggleArtist = function(e) {
-		var parent = e.target.parentNode;
-    	if (parent.className === "artist") {
-    		parent.className = "artistRevealed";
-    	}
-    }
 
 
 $(document).ready(onReady);

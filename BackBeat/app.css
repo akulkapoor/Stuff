@@ -1,4 +1,4 @@
-a:link {
+.link {
 	color: #000000; 
 	text-decoration: none;
 	text-transform: uppercase;
@@ -66,7 +66,7 @@ body{
 	max-height: 150px;
 }
 
-.results .link a{	
+.link {	
 	position: relative;
 	float: left;
 	color: white;
