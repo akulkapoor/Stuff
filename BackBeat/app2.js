@@ -12,6 +12,8 @@ onReady = function() {
 		$('#picture').append("<img src = " + big + ">");
 		$("#picture").attr('class', 'show');
 		setInfo(object,band);
+		$(this).offset();
+
 	});
 	$('.link').live("click",function(){
 		$('#picture').html('')
@@ -42,8 +44,17 @@ setInfo = function(object,band) {
 				}
 				
 				else {
-				info.innerHTML = data.artist.bio.content;
+				var head = document.createElement("div");
+				var body = document.createElement("div");
+				head.innerHTML = "Bio";
+				head.setAttribute("id", "head");
+				body.setAttribute("id", "body");
+				body.innerHTML = data.artist.bio.content;
+				$(info).append(head);
+				$(info).append("<br>");
+				$(info).append(body);
 				}
+
 				$("#picture").append(info);
 			});	
 }

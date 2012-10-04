@@ -65,6 +65,10 @@ body{
 	max-height: 150px;
 }
 
+#picture img{
+	max-height: 350px;
+}
+
 .link {	
 	position: relative;
 	float: left;
@@ -78,17 +82,26 @@ body{
 	font-weight: bold;
 }
 
-.info {
+.info #head{
+	margin-top: 20px;
+	display: inline-block;
+	float: left;
+	clear: both;
+	margin-left: 100px;
+}
+
+.info #body{
+	display: inline-block;
 	font-size: 12px;
 	line-height: 20px;
 	text-transform: none;
+	max-width: 300px;
+	overflow: auto;
+	max-height: 200px;
+	float: left;
+	clear: both;
 }
 
 .info a:link{
 	color: #FFFFFF;
-}
-
-.artistRevealed img{
-	background-image: img;
-	background-size: 100%
 }
