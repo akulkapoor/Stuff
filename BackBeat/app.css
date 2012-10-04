@@ -1,5 +1,4 @@
-.link {
-	color: #000000; 
+a:link {
 	text-decoration: none;
 	text-transform: uppercase;
 	font-weight: bold; 
@@ -75,6 +74,18 @@ body{
 	padding-left: 20px;
 	margin-left: 30px;
 	top: 30px;
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.info {
+	font-size: 12px;
+	line-height: 20px;
+	text-transform: none;
+}
+
+.info a:link{
+	color: #FFFFFF;
 }
 
 .artistRevealed img{
