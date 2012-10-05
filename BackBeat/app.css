@@ -4,12 +4,19 @@ a:link {
 	font-weight: bold; 
 }
 
+
 body{
 	background-image:url("Background.png");
 	background-size: 100%;
 	font-family:'Open Sans' sans-serif;
 	color: black;
 	text-align: center;
+	margin:0px;
+}
+
+h1{
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 #search input[type="text"] {
@@ -36,8 +43,11 @@ body{
 #search input[type="text"]:focus {
     width: 300px;
     }
+
 #search h1{
 	color:white;
+	background: rgba(0,0,0,0.7);
+	margin-top: 0px;
 }  
 
 .results {
@@ -84,6 +94,11 @@ body{
 	top: 30px;
 	text-transform: uppercase;
 	font-weight: bold;
+}
+
+.link:active {
+	position: relative;
+	top: 32px;
 }
 
 .info #head{

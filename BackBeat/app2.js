@@ -5,13 +5,12 @@ onReady = function() {
 	var windowWidth = $(window).width();
 	$("#picture").css("width",windowWidth/2.3);
 	$('#menu').tabify();
-	$('img').live("click",function(){
+	$('.content img').live("click",function(){
 		$('#picture').html('')
 		var big = $(this).attr("data-big");
 		var band = $(this).attr("band");
 		var object = $(this);
 		var small = $(this).attr("src");
-		console.log(small);
 		$('#picture').append(band +"<br>");
 		$('#picture').append("<img id=bigPic" + ">");
 		$("#bigPic").css("opacity",0);
@@ -46,15 +45,50 @@ onReady = function() {
 		});
 		});
 	});
+
+
+
 	$('.link').live("click",function(){
 		$('#picture').html('')
 		var big = $(this.innerHTML).attr("data-big");
 		var band = $(this.innerHTML).attr("band");
 		var object = $(this.innerHTML);
+		var small = $(this.innerHTML).attr("src");
+		var parent = this.parentNode;
+		var small = $(parent).find("img").attr("src");
+		var startLeft = $(parent).find("img").offset().left;
+		var startTop = $(parent).find("img").offset().top;
+		var startWidth = $(parent).find("img").width();
+		var startHeight = $(parent).find("img").height();
 		$('#picture').append(band +"<br>");
-		$('#picture').append("<img src = " + big + ">");
+		$('#picture').append("<img id=bigPic" + ">");
+		$("#bigPic").css("opacity",0);
+		$('#bigPic').attr("src", big);
 		$("#picture").attr('class', 'show');
 		setInfo(object,band);
+		$("#bigPic").load(function() {
+		var endLeft = $("#bigPic").offset().left;
+		var endTop = $("#bigPic").offset().top;
+		var finalwidth = $('#bigPic').width();
+		var finalheight = $('#bigPic').height();
+		var a = document.createElement("div");
+		//$(a).attr("id","transitionPic");
+		a = "<img src = '" + small + "' id=transitionPic" + ">";
+		$('body').append(a);
+		$("#transitionPic").css("position","absolute");
+		$("#transitionPic").css("left",startLeft)
+		$("#transitionPic").css("top",startTop)
+		$("#transitionPic").css("width",startWidth)
+		$("#transitionPic").css("height",startHeight)
+		$("#transitionPic").animate({
+			left: endLeft,
+			top: endTop,
+			width: finalwidth,
+			height: finalheight},500,function() {
+		$('#transitionPic').remove();
+		$("#bigPic").css("opacity",1);
+		});
+		});
 	});
 }
 
@@ -103,7 +137,7 @@ setInfo = function(object,band) {
 allShows=function(){
 
 var data1;
-
+			if ($("#locationSearch").val() !== "") {
 			$.getJSON('http://ws.audioscrobbler.com/2.0/',
 			{
 				method: "geo.getEvents",
@@ -116,7 +150,6 @@ var data1;
 			function(data) {
 				data1 = data;
 				$("#results3").html("");
-				console.log(data);
 
 
 				$.each(data1.events.event, function(i, item) {
@@ -128,7 +161,7 @@ var data1;
 
 						var img = document.createElement("div");
 						img.className = "img";
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[3]["#text"] + " band=" + item.artists.artist + " city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name + "'>"
+						img.innerHTML = "<img src='" + item.image[3]["#text"] + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name + "'>"
 
 						var link = document.createElement("div");
 						link.className = "link";
@@ -139,7 +172,7 @@ var data1;
 						else {
 							link.innerHTML = "<a href='" + item.url + "'>" + item.artists.artist + "</a>";
 						}*/
-						link.innerHTML = "<div id='" + item.artists.artist  + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "'' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name+ "'>" + item.artists.artist + "</div>";
+						link.innerHTML = "<div id='" + item.artists.artist  + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name+ "'>" + item.artists.artist + "</div>";
 						artist.appendChild(link);
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
@@ -149,6 +182,7 @@ var data1;
 				
 			});
 		});
+	}
 }
 
 simArts=function(){
@@ -184,8 +218,7 @@ var data1;
 						link.className = "link";
 						//if (item.url.slice(0,7) !== "http://") {
 							//link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
-							link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</div>";
-							
+						link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</div>";
 						//}
 						//else {
 							//link.innerHTML = "<a href='" + item.url + "'>" + item.name + "</a>";
@@ -203,7 +236,7 @@ var data1;
 }
 
 simLocArts=function(){
-
+if ($("#locationSearch").val() !== "") {
 var data1;
 var data2;
 			$.getJSON('http://ws.audioscrobbler.com/2.0/',
@@ -267,6 +300,7 @@ var data2;
 				});
 			});
 		});
+	}
 }
 
 
