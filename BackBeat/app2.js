@@ -16,6 +16,7 @@ onReady = function() {
 		$('#bigPic').attr("src", big);
 		$("#picture").attr('class', 'show');
 		setInfo(object,band);
+
 		var startLeft = $(this).offset().left;
 		var startTop = $(this).offset().top;
 		var startWidth = $(this).width();
@@ -43,6 +44,11 @@ onReady = function() {
 		$("#bigPic").css("opacity",1);
 		});
 		});
+
+		$(this).offset();
+		getSong(band);
+
+
 	});
 	$('.link').live("click",function(){
 		$('#picture').html('')
@@ -53,6 +59,7 @@ onReady = function() {
 		$('#picture').append("<img src = " + big + ">");
 		$("#picture").attr('class', 'show');
 		setInfo(object,band);
+		getSong(band);
 	});
 }
 
@@ -95,8 +102,56 @@ setInfo = function(object,band) {
 			allShows();
 			$("#picture").attr('class', 'hidden');
 
+			
+
 
 	}
+/*
+getSong = function(artist){
+
+	$.getJSON('http://developer.echonest.com/api/v4/song/search',
+	{
+		api_key: "M530NF1UNZ2UPG0FM",
+		format: "json",
+		artist: artist,
+		id: "7digital-US",
+		bucket: "tracks"
+
+	$.ajax({
+		url: 'http://hkr.me:8001/?url=' + encodeURIComponent('http://tinysong.com/a/'+ name + "?format=json&key=0b2bb200a3ba82fade58b1a7f8830c91") + "&jsonp=?",
+		dataType: "json",
+		success: callBack
+
+	});
+		
+}
+*/
+
+
+getSong = function(name){
+
+
+	$.ajax({
+		url: 'http://hkr.me:8001/?url=' + encodeURIComponent('http://developer.echonest.com/api/v4/song/search?api_key=N6E4NIOVYMTHNDM8J&format=json&results=5&artist=' + name + '&bucket=id:7digital-US&bucket=audio_summary&bucket=tracks') + "&jsonp=?",
+		dataType: "json",
+		success: callBack
+
+	});
+
+
+
+
+}
+
+
+
+callBack = function(data) {
+	console.log(data);
+	
+}
+
+
+
 
 allShows=function(){
 
