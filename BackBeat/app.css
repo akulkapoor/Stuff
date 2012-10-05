@@ -113,12 +113,13 @@ body{
 	color: #FFFFFF;
 }
 
-<<<<<<< Updated upstream
+
 #bigPic {
 	border-radius: 10px;
 	margin-top: 10px;
-=======
-#song{
-	display: none;
->>>>>>> Stashed changes
+
+}
+
+#player {
+	float: right;
 }

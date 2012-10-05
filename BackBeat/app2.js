@@ -3,7 +3,7 @@ var data2;
 
 onReady = function() {
 	var windowWidth = $(window).width();
-	$("#picture").css("width",windowWidth/2.2);
+	$("#picture").css("width",windowWidth/2.3);
 	$('#menu').tabify();
 	$('img').live("click",function(){
 		$('#picture').html('')
