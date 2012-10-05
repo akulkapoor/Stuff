@@ -2,6 +2,8 @@ var data1;
 var data2;
 
 onReady = function() {
+	var windowWidth = $(window).width();
+	$("#picture").css("width",windowWidth/2.4);
 	$('#menu').tabify();
 	$('img').live("click",function(){
 		$('#picture').html('')
