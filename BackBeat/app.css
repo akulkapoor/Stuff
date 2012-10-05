@@ -13,7 +13,7 @@ body{
 }
 
 #search input[type="text"] {
-    background: no-repeat 10px 6px #444;
+    background: no-repeat 10px 6px rgba(0, 0, 0, 0.6);
     border: none;
     font: bold 12px Arial,Helvetica,Sans-serif;
     color: #FFF;
@@ -65,15 +65,19 @@ body{
 	max-height: 150px;
 }
 
+
 #picture img{
 	max-height: 350px;
+	opacity: 1;
 }
+
+
 
 .link {	
 	position: relative;
 	float: left;
 	color: white;
-	background-color: black;
+	/*background-color: black;*/
 	padding-right: 20px;
 	padding-left: 20px;
 	margin-left: 30px;
@@ -87,7 +91,7 @@ body{
 	display: inline-block;
 	float: left;
 	clear: both;
-	margin-left: 100px;
+	margin-left: 130px;
 }
 
 .info #body{
@@ -100,8 +104,16 @@ body{
 	max-height: 200px;
 	float: left;
 	clear: both;
+	margin-left: 20px;
+	padding-right: 20px;
+	margin-top: 10px;
 }
 
 .info a:link{
 	color: #FFFFFF;
+}
+
+#bigPic {
+	border-radius: 10px;
+	margin-top: 10px;
 }

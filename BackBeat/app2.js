@@ -8,12 +8,41 @@ onReady = function() {
 		var big = $(this).attr("data-big");
 		var band = $(this).attr("band");
 		var object = $(this);
+		var small = $(this).attr("src");
+		console.log(small);
 		$('#picture').append(band +"<br>");
-		$('#picture').append("<img src = " + big + ">");
+		$('#picture').append("<img id=bigPic" + ">");
+		$("#bigPic").css("opacity",0);
+		$('#bigPic').attr("src", big);
 		$("#picture").attr('class', 'show');
 		setInfo(object,band);
-		$(this).offset();
-
+		var startLeft = $(this).offset().left;
+		var startTop = $(this).offset().top;
+		var startWidth = $(this).width();
+		var startHeight = $(this).height();
+		$("#bigPic").load(function() {
+		var endLeft = $("#bigPic").offset().left;
+		var endTop = $("#bigPic").offset().top;
+		var finalwidth = $('#bigPic').width();
+		var finalheight = $('#bigPic').height();
+		var a = document.createElement("div");
+		//$(a).attr("id","transitionPic");
+		a = "<img src = '" + small + "' id=transitionPic" + ">";
+		$('body').append(a);
+		$("#transitionPic").css("position","absolute");
+		$("#transitionPic").css("left",startLeft)
+		$("#transitionPic").css("top",startTop)
+		$("#transitionPic").css("width",startWidth)
+		$("#transitionPic").css("height",startHeight)
+		$("#transitionPic").animate({
+			left: endLeft,
+			top: endTop,
+			width: finalwidth,
+			height: finalheight},500,function() {
+		$('#transitionPic').remove();
+		$("#bigPic").css("opacity",1);
+		});
+		});
 	});
 	$('.link').live("click",function(){
 		$('#picture').html('')
