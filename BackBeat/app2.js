@@ -48,10 +48,10 @@ var player ='<div id="skin-loader"></div> \
 
 var text = new Object();
 text.txt = "Click Here to Play";
-text.x = 200;
+text.x = 350;
 text.y = 40;
-text.xVel = 2;
-text.yVel = 1;
+text.xVel = 0;
+text.yVel = 0;
 var name;
 onReady = function() {
 	var info = document.createElement("div");
@@ -195,6 +195,18 @@ setInfo = function(object,band) {
 }
 
 		doSearch = function() {
+			particles = [];
+			for(var i = 0; i < 25; i++)
+			{
+				var p = new coloredParticle();
+				p.setSize();
+		        p.setColors();
+				p.setVelocity();
+		
+			//This will add 50 particles to the array with random positions
+			particles.push(p);
+
+			}	
 			setInterval(run, 50);
 			text.txt = $("#artistSearch").val();
 			$('#picture').html('')
@@ -457,5 +469,88 @@ function run () {
 	text.y = 20;
 	}
 	text.y += text.yVel;
+	draw();
 	redrawAll();
 }
+
+
+
+var W = 570; var H = 80;
+
+
+var particles = [];
+for(var i = 0; i < 50; i++)
+{
+	
+	particles.push(new coloredParticle());
+}
+
+
+function Particle(){
+
+	this.x = 350;
+	this.y = 40;
+	this.vx = 0;
+	this.vy=0;
+}
+	
+	Particle.prototype.setVelocity = function(){
+	this.vx = Math.random()*20-5;
+	this.vy = Math.random()*20-5;
+}
+
+	Particle.prototype.move = function(){
+	this.x += this.vx;
+	this.y += this.vy;
+}
+	
+	Particle.prototype.setSize = function(){
+	this.radius = Math.random()*5+5;
+}
+
+function coloredParticle(){
+	Particle.call(this);
+}
+	coloredParticle.prototype = new Particle();
+
+	coloredParticle.prototype.setColors = function(){
+	var r = Math.random()*255>>0;
+	var g = Math.random()*255>>0;
+	var b = Math.random()*255>>0;
+	this.color = "rgba("+r+", "+g+", "+b+", 0.5)";
+}
+
+
+var x = 100; var y = 50;
+
+
+function draw()
+{
+	ctx.clearRect(0, 0, 2000, 1000);
+	ctx.globalCompositeOperation = "source-over";
+	ctx.globalCompositeOperation = "lighter";
+	
+	for(var t = 0; t < particles.length; t++)
+	{
+		var p = particles[t];
+
+
+		ctx.beginPath();
+		
+		
+		var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+		gradient.addColorStop(0, "white");
+		gradient.addColorStop(0.4, "white");
+		gradient.addColorStop(0.4, p.color);
+		gradient.addColorStop(0.2, "white");
+		
+		ctx.fillStyle = gradient;
+		ctx.arc(p.x, p.y, p.radius, Math.PI*2, false);
+		ctx.fill();
+		
+
+		p.move();
+		
+	}
+}
+
