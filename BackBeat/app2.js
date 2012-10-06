@@ -41,15 +41,13 @@ var player ='<div id="skin-loader"></div> \
 						</ul> \
 					</div> \
 					<div class="jp-no-solution"> \
-						<span>Update Required</span> \
-						To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>. \
 					</div> \
 				</div> \
 			</div><!-- .jp-audio --> \
 		</div><!-- .wrapper -->';
+var jax;
 
-
-
+var name;
 
 
 onReady = function() {
@@ -62,10 +60,14 @@ onReady = function() {
 	var windowWidth = $(window).width();
 	$("#picture").css("width",windowWidth/2.3);
 	$('#menu').tabify();
+	
 	$('.content img').live("click",function(){
+
 		$('#picture').html('')
+		
 		var big = $(this).attr("data-big");
 		var band = $(this).attr("band");
+		name = $(this).attr("band");
 		var object = $(this);
 		var small = $(this).attr("src");
 		setInfo(object,band);
@@ -79,7 +81,9 @@ onReady = function() {
 		$("#bigPic").css("opacity",0);
 		$('#bigPic').attr("src", big);
 		$("#picture").attr('class', 'show');
+		getSong(band);
 		$("#bigPic").load(function() {
+
 		var endLeft = $("#bigPic").offset().left;
 		var endTop = $("#bigPic").offset().top;
 		var finalwidth = $('#bigPic').width();
@@ -104,84 +108,8 @@ onReady = function() {
 		$("#bigPic").css("opacity",1);
 		});
 		});
-		getSong(band);
-		new jPlayerPlaylist({
-				jPlayer: "#jquery_jplayer_1",
-				cssSelectorAncestor: "#jp_container_1"
-			}, [
-				{
-					title:"Cro Magnon Man",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
-				},
-				{
-					title:"Your Face",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-05-Your_face.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-05-Your_face.ogg"
-				},
-				{
-					title:"Cyber Sonnet",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-07-Cybersonnet.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-07-Cybersonnet.ogg"
-				},
-				{
-					title:"Tempered Song",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-01-Tempered-song.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-01-Tempered-song.ogg"
-				},
-				{
-					title:"Hidden",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-02-Hidden.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg"
-				},
-				{
-					title:"Lentement",
-					free:true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-03-Lentement.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-03-Lentement.ogg"
-				},
-				{
-					title:"Lismore",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-04-Lismore.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-04-Lismore.ogg"
-				},
-				{
-					title:"The Separation",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-05-The-separation.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-05-The-separation.ogg"
-				},
-				{
-					title:"Beside Me",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-06-Beside-me.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-06-Beside-me.ogg"
-				},
-				{
-					title:"Bubble",
-					free:true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
-				},
-				{
-					title:"Stirring of a Fool",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-08-Stirring-of-a-fool.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-08-Stirring-of-a-fool.ogg"
-				},
-				{
-					title:"Partir",
-					free: true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-09-Partir.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-09-Partir.ogg"
-				},
-				{
-					title:"Thin Ice",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-10-Thin-ice.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-10-Thin-ice.ogg"
-				}
-			], {
-				swfPath: "js",
-				supplied: "oga, mp3",
-				wmode: "window"
-			});
+		
+
 
 	});
 
@@ -189,6 +117,7 @@ onReady = function() {
 
 	$('.link').live("click",function(){
 		$('#picture').html('')
+
 		var big = $(this.innerHTML).attr("data-big");
 		var band = $(this.innerHTML).attr("band");
 		var object = $(this.innerHTML);
@@ -206,6 +135,7 @@ onReady = function() {
 		$('#bigPic').attr("src", big);
 		$("#picture").attr('class', 'show');
 		setInfo(object,band);
+		getSong(band);
 		$("#bigPic").load(function() {
 		var endLeft = $("#bigPic").offset().left;
 		var endTop = $("#bigPic").offset().top;
@@ -229,84 +159,8 @@ onReady = function() {
 		$("#bigPic").css("opacity",1);
 		});
 		});
-		getSong(band);
-		new jPlayerPlaylist({
-				jPlayer: "#jquery_jplayer_1",
-				cssSelectorAncestor: "#jp_container_1"
-			}, [
-				{
-					title:"Cro Magnon Man",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
-				},
-				{
-					title:"Your Face",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-05-Your_face.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-05-Your_face.ogg"
-				},
-				{
-					title:"Cyber Sonnet",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-07-Cybersonnet.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-07-Cybersonnet.ogg"
-				},
-				{
-					title:"Tempered Song",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-01-Tempered-song.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-01-Tempered-song.ogg"
-				},
-				{
-					title:"Hidden",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-02-Hidden.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg"
-				},
-				{
-					title:"Lentement",
-					free:true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-03-Lentement.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-03-Lentement.ogg"
-				},
-				{
-					title:"Lismore",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-04-Lismore.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-04-Lismore.ogg"
-				},
-				{
-					title:"The Separation",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-05-The-separation.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-05-The-separation.ogg"
-				},
-				{
-					title:"Beside Me",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-06-Beside-me.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-06-Beside-me.ogg"
-				},
-				{
-					title:"Bubble",
-					free:true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
-				},
-				{
-					title:"Stirring of a Fool",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-08-Stirring-of-a-fool.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-08-Stirring-of-a-fool.ogg"
-				},
-				{
-					title:"Partir",
-					free: true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-09-Partir.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-09-Partir.ogg"
-				},
-				{
-					title:"Thin Ice",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-10-Thin-ice.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-10-Thin-ice.ogg"
-				}
-			], {
-				swfPath: "js",
-				supplied: "oga, mp3",
-				wmode: "window"
-			});
+		
+
 	});
 }
 setInfo = function(object,band) {
@@ -352,27 +206,6 @@ setInfo = function(object,band) {
 
 
 	}
-/*
-getSong = function(artist){
-
-	$.getJSON('http://developer.echonest.com/api/v4/song/search',
-	{
-		api_key: "M530NF1UNZ2UPG0FM",
-		format: "json",
-		artist: artist,
-		id: "7digital-US",
-		bucket: "tracks"
-
-	$.ajax({
-		url: 'http://hkr.me:8001/?url=' + encodeURIComponent('http://tinysong.com/a/'+ name + "?format=json&key=0b2bb200a3ba82fade58b1a7f8830c91") + "&jsonp=?",
-		dataType: "json",
-		success: callBack
-
-	});
-		
-}
-*/
-
 
 getSong = function(name){
 
@@ -389,8 +222,34 @@ getSong = function(name){
 
 
 callBack = function(data) {
-	console.log(data);
+	if (data.response.status.message !== "Success") {
+				getSong(name);
+			}
+	else {
+	console.log(data)
+
+	var trackList = []
+
+	$.each(data.response.songs, function(i, item) {
+		var trackName = item.title
+
+		if (item.tracks.length > 0){
+			var preview = item.tracks[0].preview_url
+			trackList.push({title:trackName,mp3:preview})
+		}
+	});
 	
+
+
+			new jPlayerPlaylist({
+				jPlayer: "#jquery_jplayer_1",
+				cssSelectorAncestor: "#jp_container_1"
+			}, trackList, {
+				swfPath: "js",
+				supplied: "oga, mp3",
+				wmode: "window"
+			});
+	}
 }
 
 
