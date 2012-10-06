@@ -47,11 +47,12 @@ var player ='<div id="skin-loader"></div> \
 				</div> \
 			</div><!-- .jp-audio --> \
 		</div><!-- .wrapper -->';
-
-
-
-
-
+var text = new Object();
+text.txt = "Click Here to Play";
+text.x = 200;
+text.y = 40;
+text.xVel = 2;
+text.yVel = 1;
 onReady = function() {
 	var info = document.createElement("div");
 	info.setAttribute("id","info");
@@ -100,11 +101,11 @@ onReady = function() {
 			top: endTop,
 			width: finalwidth,
 			height: finalheight},500,function() {
-		$('#transitionPic').remove();
 		$("#bigPic").css("opacity",1);
+		$('#transitionPic').remove();
 		});
 		});
-		getSong(band);
+		//getSong(band);
 		new jPlayerPlaylist({
 				jPlayer: "#jquery_jplayer_1",
 				cssSelectorAncestor: "#jp_container_1"
@@ -225,11 +226,11 @@ onReady = function() {
 			top: endTop,
 			width: finalwidth,
 			height: finalheight},500,function() {
-		$('#transitionPic').remove();
 		$("#bigPic").css("opacity",1);
+				$('#transitionPic').remove();
 		});
 		});
-		getSong(band);
+		//getSong(band);
 		new jPlayerPlaylist({
 				jPlayer: "#jquery_jplayer_1",
 				cssSelectorAncestor: "#jp_container_1"
@@ -342,6 +343,8 @@ setInfo = function(object,band) {
 }
 
 		doSearch = function() {
+			setInterval(run, 50);
+			text.txt = $("#artistSearch").val();
 			$('#picture').html('')
 			simArts();
 			simLocArts();
@@ -567,3 +570,37 @@ var data2;
 
 
 $(document).ready(onReady);
+
+canvas = document.getElementById("myCanvas");
+ctx = canvas.getContext("2d");
+
+function redrawAll() {
+	ctx.font = "25px Lucida Grande";
+	ctx.fillStyle = "white";
+	ctx.textAlign = "center";
+	ctx.fillText(text.txt, text.x, text.y);
+}
+
+function run () {
+	ctx.clearRect(0, 0, 2000, 1000);
+	if (text.x +70>canvas.width) {
+	text.xVel = text.xVel*(-1);
+	text.x = canvas.width-70;
+	}
+	if (text.x<100) {
+	text.xVel = text.xVel*(-1);
+	text.x = 100;
+	}
+	text.x += text.xVel;
+
+	if (text.y +15>canvas.height) {
+	text.yVel = text.yVel*(-1);
+	text.y = canvas.height-15;
+	}
+	if (text.y<20) {
+	text.yVel = text.yVel*(-1);
+	text.y = 20;
+	}
+	text.y += text.yVel;
+	redrawAll();
+}
