@@ -114,6 +114,11 @@ h1{
 	top: 32px;
 }
 
+img:active {
+	position: relative;
+	top: 2px;
+}
+
 .info {
 	text-transform: none;
 }
