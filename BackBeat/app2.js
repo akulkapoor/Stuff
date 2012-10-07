@@ -48,8 +48,8 @@ var player ='<div id="skin-loader"></div> \
 
 var text = new Object();
 text.txt = "";
-text.x = 350;
-text.y = 40;
+text.x = 300;
+text.y = 20;
 text.xVel = 0;
 text.yVel = 0;
 var name;
@@ -473,7 +473,7 @@ ctx.textBaseline = "top"
 ctx.shadowColor = "#606060"
 ctx.shadowOffsetX = 10;
 ctx.shadowOffsetY = 10;
-ctx.font = "25px Lucida Grande";
+ctx.font = "60px Cabin Sketch";
 ctx.shadowBlur = blur;
 ctx.fillStyle = "white";
 ctx.textAlign = "center";
