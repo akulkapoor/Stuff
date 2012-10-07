@@ -1,6 +1,11 @@
+//Akul Kapoor (akulk) and Matt Powell-Palm (mpowellp)
+
 var data1;
 var data2;
-var player ='<div id="skin-loader"></div> \
+var player =
+//html code for the jQuery Player
+//not ours, copied from jPLayer site. 
+'<div id="skin-loader"></div> \
 		<div id="skin-wrapper" data-skin-name="premium-pixels"> \
 			<div id="jquery_jplayer_1" class="jp-jplayer"></div> \
 			<div id="jp_container_1" class="jp-audio"> \
@@ -62,6 +67,9 @@ onReady = function() {
 	$("#picture").css("width",windowWidth/2.3);
 	$('#menu').tabify();
 	
+
+
+	//Picture Clicks
 	$('.content img').live("click",function(){
 
 		$('#picture').html('')
@@ -80,10 +88,12 @@ onReady = function() {
 		$('#picture').append(band +"<br>");
 		$('#picture').append("<img id=bigPic" + ">" + "<br>");
 		if (link.slice(0,7) !== "http://") {
-			$('#picture').append("<div id = page><a href='http://" + link + "'>" + "Last FM Page" + "</a>" + "</div>");
+			$('#picture').append("<div id = page><a href='http://" + link + 
+				"'>" + "Last FM Page" + "</a>" + "</div>");
 		}
 		else {
-			$('#picture').append("<div id = page><a href='" + link + "'>" + "Last FM Page" + "</a>" + "</div>");
+			$('#picture').append("<div id = page><a href='" + link + 
+				"'>" + "Last FM Page" + "</a>" + "</div>");
 		}
 		$('#picture').append(player);
 		$("#bigPic").css("opacity",0);
@@ -97,11 +107,10 @@ onReady = function() {
 		var finalwidth = $('#bigPic').width();
 		var finalheight = $('#bigPic').height();
 
-		//$(a).attr("id","transitionPic");
 		var a = document.createElement("div");
-		//$(a).attr("id","transitionPic");
 		a = "<img src = '" + small + "' id=transitionPic" + ">";
 		$('body').append(a);
+		//Animation
 		$("#transitionPic").css("position","absolute");
 		$("#transitionPic").css("left",startLeft)
 		$("#transitionPic").css("top",startTop)
@@ -120,7 +129,7 @@ onReady = function() {
 	});
 
 
-
+	//Link Clicks
 	$('.link').live("click",function(){
 		$('#picture').html('')
 
@@ -138,10 +147,12 @@ onReady = function() {
 		$('#picture').append(band +"<br>");
 		$('#picture').append("<img id=bigPic" + ">" + "<br>");
 		if (link.slice(0,7) !== "http://") {
-			$('#picture').append("<div id = page><a href='http://" + link + "'>" + "Last FM Page" + "</a>" + "</div>");
+			$('#picture').append("<div id = page><a href='http://" + link + 
+				"'>" + "Last FM Page" + "</a>" + "</div>");
 		}
 		else {
-			$('#picture').append("<div id = page><a href='" + link + "'>" + "Last FM Page" + "</a>" + "</div>");
+			$('#picture').append("<div id = page><a href='" + link + 
+				"'>" + "Last FM Page" + "</a>" + "</div>");
 		}
 		$('#picture').append(player);
 		$("#bigPic").css("opacity",0);
@@ -158,6 +169,7 @@ onReady = function() {
 		//$(a).attr("id","transitionPic");
 		a = "<img src = '" + small + "' id=transitionPic" + ">";
 		$('body').append(a);
+		//Animation
 		$("#transitionPic").css("position","absolute");
 		$("#transitionPic").css("left",startLeft)
 		$("#transitionPic").css("top",startTop)
@@ -174,7 +186,10 @@ onReady = function() {
 		});
 	});
 }
+
+//Sets the info of the artist in the picture div
 setInfo = function(object,band) {
+//
 	$.getJSON('http://ws.audioscrobbler.com/2.0/',
 			{
 				method: "artist.getInfo",
@@ -187,7 +202,9 @@ setInfo = function(object,band) {
 				var info = document.createElement("div");
 				info.className = "info";
 				if (object.attr("city")  !== undefined) {
-					info.innerHTML = "<br>" + object.attr("city") + "<br>" + object.attr("country") + "<br>" + object.attr("theatre") + "<br>" + object.attr("date");
+					info.innerHTML = "<br>" + object.attr("city") + 
+					"<br>" + object.attr("country") + "<br>" + 
+					object.attr("theatre") + "<br>" + object.attr("date");
 				}
 				
 				else {
@@ -206,35 +223,36 @@ setInfo = function(object,band) {
 			});	
 }
 
-		doSearch = function() {
-			particles = [];
-			for(var i = 0; i < 25; i++)
-			{
-				var p = new coloredParticle();
-				p.setSize();
-		        p.setColors();
-				p.setVelocity();
-		
-			//This will add 50 particles to the array with random positions
-			particles.push(p);
-
-			}	
-			setInterval(run, 50);
-			text.txt = $("#artistSearch").val();
-			$('#picture').html('')
-			simArts();
-			simLocArts();
-			allShows();
-			$("#picture").attr('class', 'hidden');
-
+//Executes a Search and calls particle explosion
+doSearch = function() {
+	particles = [];
+	for(var i = 0; i < 25; i++) {
+		var p = new coloredParticle();
+		p.setSize();
+		p.setColors();
+		p.setVelocity();
+		particles.push(p);
+	}	
+			
+	setInterval(run, 50);
+	text.txt = $("#artistSearch").val();
+	$('#picture').html('')
+	simArts();
+	simLocArts();
+	allShows();
+	$("#picture").attr('class', 'hidden');
 	}
 
+//Gets mp3 urls for music player from EchoNest API
 getSong = function(name){
 	if (name.indexOf(",") > 0) {
 		name = name.slice(0,name.indexOf(","));
 	}
 	$.ajax({
-		url: 'http://hkr.me:8001/?url=' + encodeURIComponent('http://developer.echonest.com/api/v4/song/search?api_key=N6E4NIOVYMTHNDM8J&format=json&results=5&artist=' + name + '&bucket=id:7digital-US&bucket=audio_summary&bucket=tracks') + "&jsonp=?",
+		url: 'http://hkr.me:8001/?url=' + 
+		encodeURIComponent('http://developer.echonest.com/api/v4/song/search?api_key=N6E4NIOVYMTHNDM8J&format=json&results=5&artist=' + 
+			name + '&bucket=id:7digital-US&bucket=audio_summary&bucket=tracks') 
+		+ "&jsonp=?",
 		dataType: "json",
 		success: callBack
 
@@ -243,7 +261,7 @@ getSong = function(name){
 }
 
 
-
+//Callback for AJAX
 callBack = function(data) {
 	if (data.response.status.message !== "Success") {
 				getSong(name);
@@ -261,94 +279,104 @@ callBack = function(data) {
 	});
 	
 
-
-			new jPlayerPlaylist({
-				jPlayer: "#jquery_jplayer_1",
-				cssSelectorAncestor: "#jp_container_1"
-			}, trackList, {
-				swfPath: "js",
- 				solution: 'html, flash',
-				 supplied: 'mp3',
-				 preload: 'metadata',
-				 volume: 0.8,
-				 muted: false,
-				 backgroundColor: '#000000',
-				 cssSelectorAncestor: '#jp_container_1',
-				 cssSelector: {
-				  videoPlay: '.jp-video-play',
-				  play: '.jp-play',
-				  pause: '.jp-pause',
-				  stop: '.jp-stop',
-				  seekBar: '.jp-seek-bar',
-				  playBar: '.jp-play-bar',
-				  mute: '.jp-mute',
-				  unmute: '.jp-unmute',
-				  volumeBar: '.jp-volume-bar',
-				  volumeBarValue: '.jp-volume-bar-value',
-				  volumeMax: '.jp-volume-max',
-				  currentTime: '.jp-current-time',
-				  duration: '.jp-duration',
-				  fullScreen: '.jp-full-screen',
-				  restoreScreen: '.jp-restore-screen',
-				  repeat: '.jp-repeat',
-				  repeatOff: '.jp-repeat-off',
-				  gui: '.jp-gui',
-				  noSolution: '.jp-no-solution'
-				 },
-				 errorAlerts: false,
-				 warningAlerts: false
-			});
+	//Code from jPlayer
+	new jPlayerPlaylist({
+		jPlayer: "#jquery_jplayer_1",
+		cssSelectorAncestor: "#jp_container_1"
+		}, trackList, {
+		swfPath: "js",
+ 		solution: 'html, flash',
+		supplied: 'mp3',
+		preload: 'metadata',
+		volume: 0.8,
+		muted: false,
+		backgroundColor: '#000000',
+		cssSelectorAncestor: '#jp_container_1',
+		cssSelector: {
+		videoPlay: '.jp-video-play',
+		play: '.jp-play',
+		pause: '.jp-pause',
+		stop: '.jp-stop',
+		seekBar: '.jp-seek-bar',
+		playBar: '.jp-play-bar',
+		mute: '.jp-mute',
+		unmute: '.jp-unmute',
+		volumeBar: '.jp-volume-bar',
+		volumeBarValue: '.jp-volume-bar-value',
+		volumeMax: '.jp-volume-max',
+		currentTime: '.jp-current-time',
+		duration: '.jp-duration',
+		fullScreen: '.jp-full-screen',
+		restoreScreen: '.jp-restore-screen',
+		repeat: '.jp-repeat',
+		repeatOff: '.jp-repeat-off',
+		gui: '.jp-gui',
+		noSolution: '.jp-no-solution'
+		},
+		errorAlerts: false,
+		warningAlerts: false
+		});
 	}
 }
 
 
 
-
+//Display Upcoming Shows - Last.fm API
 allShows=function(){
 
 var data1;
-			if ($("#locationSearch").val() !== "") {
-			$.getJSON('http://ws.audioscrobbler.com/2.0/',
-			{
-				method: "geo.getEvents",
-				api_key: "8319d81dde2f49bad5c65a0ce2361a31",
-				format: "json",
-				location: $("#locationSearch").val(),
-				limit: 50
-			},
+if ($("#locationSearch").val() !== "") {
+	$.getJSON('http://ws.audioscrobbler.com/2.0/',
+	{
+		method: "geo.getEvents",
+		api_key: "8319d81dde2f49bad5c65a0ce2361a31",
+		format: "json",
+		location: $("#locationSearch").val(),
+		limit: 50
+	},
 
-			function(data) {
-				data1 = data;
-				console.log(data1);
-				$("#shows").html("");
+	function(data) {
+		data1 = data;
+		$("#shows").html("");
+		$.each(data1.events.event, function(i, item) {		
+			var artist = document.createElement("div");
+			artist.className = "artist";
+			artist.id = item.artists.artist;
+
+			var img = document.createElement("div");
+			img.className = "img";
+			img.innerHTML = "<img src='" + item.image[3]["#text"] + 
+			"' data-big=" + item.image[3]["#text"] + " band='" + 
+			item.artists.artist + "' city='" + item.venue.location.city + 
+			"'" + " country='" + item.venue.location.country + "'" + 
+			" theatre='" + item.venue.name + "' link='" + item.url + 
+			"' date='" + item.startDate + "'>"
 
 
-				$.each(data1.events.event, function(i, item) {
-				//alert($.inArray(item,data2.topartists.artist));	
-					
-						var artist = document.createElement("div");
-						artist.className = "artist";
-						artist.id = item.artists.artist;
 
-						var img = document.createElement("div");
-						img.className = "img";
-						img.innerHTML = "<img src='" + item.image[3]["#text"] + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name + "' link='" + item.url + "' date='" + item.startDate + "'>"
-
-						var link = document.createElement("div");
-						link.className = "link";
-						if (item.url.slice(0,7) !== "http://") {
-							link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.artists.artist + "</a>";
-							//link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.artists.artist + "</a>";
-						}
-						else {
-							link.innerHTML = "<a href='" + item.url + "'>" + item.artists.artist + "</a>";
-						}
-						link.innerHTML = "<div id='" + item.artists.artist  + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name+ "' link='" + item.url + "' date='" + item.startDate + "'>" + item.artists.artist + "</div>";
-						artist.appendChild(link);
-						artist.appendChild(img);
-						artist.innerHTML += "<br>"
-						//$("#results3").append(artist);
-						$("#shows").append(artist)
+			var link = document.createElement("div");
+			link.className = "link";
+			if (item.url.slice(0,7) !== "http://") {
+				link.innerHTML = "<a href='" + "http://" + item.url + 
+				"'>" + item.artists.artist + "</a>";
+							
+			}
+			else {
+				link.innerHTML = "<a href='" + item.url + "'>" + 
+				item.artists.artist + "</a>";
+			}
+			link.innerHTML = "<div id='" + item.artists.artist  + 
+			"' data-big=" + item.image[3]["#text"] + " band='" + 
+			item.artists.artist + "' city='" + item.venue.location.city + 
+			"'" + " country='" + item.venue.location.country + "'" + 
+			" theatre='" + item.venue.name+ "' link='" + item.url + 
+			"' date='" + item.startDate + "'>" + item.artists.artist 
+			+ "</div>";
+			artist.appendChild(link);
+			artist.appendChild(img);
+			artist.innerHTML += "<br>"
+						
+			$("#shows").append(artist)
 					
 				
 			});
@@ -356,6 +384,7 @@ var data1;
 	}
 }
 
+//Populates Similar artists tab - Last FM API
 simArts=function(){
 
 var data1;
@@ -375,30 +404,35 @@ var data1;
 
 
 				$.each(data1.similarartists.artist, function(i, item) {
-				//alert($.inArray(item,data2.topartists.artist));	
+				
 					
-						var artist = document.createElement("div");
-						artist.className = "artist";
-						artist.id = item.name;
+					var artist = document.createElement("div");
+					artist.className = "artist";
+					artist.id = item.name;
 
-						var img = document.createElement("div");
-						img.className = "img";
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "' link='" +item.url +"'>"
+					var img = document.createElement("div");
+					img.className = "img";
+					img.innerHTML = "<img src=" + item.image[3]["#text"] + 
+					" data-big=" + item.image[4]["#text"] + " band='" + 
+					item.name + "' link='" +item.url +"'>"
 
-						var link = document.createElement("div");
-						link.className = "link";
-						link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "' link='" +item.url + "'>" + item.name + "</div>";
-						artist.appendChild(link);
-						artist.appendChild(img);
-						artist.innerHTML += "<br>"
-						//$("#results2").append(artist);
-						$("#similarArtists").append(artist)
+					var link = document.createElement("div");
+					link.className = "link";
+					link.innerHTML = "<div id='" + item.name  + "' data-big=" + 
+					item.image[4]["#text"] + " band='" + item.name + "' link='"
+					 +item.url + "'>" + item.name + "</div>";
+					artist.appendChild(link);
+					artist.appendChild(img);
+					artist.innerHTML += "<br>"
+						
+					$("#similarArtists").append(artist)
 					
 				
 			});
 		});
 }
 
+//Populates similar artists and cross-references by location - Last FM API
 simLocArts=function(){
 if ($("#locationSearch").val() !== "") {
 var data1;
@@ -424,18 +458,18 @@ var data2;
 				},
 
 				function(data) {
-				data2 = data;
-				$("#similarLocalArtists").html("");
-				var names = [];
-				$.each(data2.topartists.artist, function(i, item) {
-					names.push(item.name);
-				});	
+					data2 = data;
+					$("#similarLocalArtists").html("");
+					var names = [];
+					$.each(data2.topartists.artist, function(i, item) {
+						names.push(item.name);
+					});	
 
 
 
 
 				$.each(data1.similarartists.artist, function(i, item) {
-				//alert($.inArray(item,data2.topartists.artist));	
+				
 					if ($.inArray(item.name,names) !== -1) {
 						var artist = document.createElement("div");
 						artist.className = "artist";
@@ -443,15 +477,21 @@ var data2;
 
 						var img = document.createElement("div");
 						img.className = "img";
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "' link='" +item.url +"'>"
+						img.innerHTML = "<img src=" + item.image[3]["#text"] + 
+						" data-big=" + item.image[4]["#text"] + " band='" + 
+						item.name + "' link='" +item.url +"'>"
 
 						var link = document.createElement("div");
 						link.className = "link";
-						link.innerHTML = link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "' link='" +item.url + "'>" + item.name + "</div>";
+						link.innerHTML = link.innerHTML = "<div id='" + 
+						item.name  + "' data-big=" + item.image[4]["#text"] + 
+						" band='" + item.name + "' link='" +item.url + "'>" + 
+						item.name + "</div>";
+
 						artist.appendChild(link);
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
-						//$("#results1").append(artist);
+						
 						$("#similarLocalArtists").append($(artist))
 					}
 				});
@@ -466,6 +506,7 @@ $(document).ready(onReady);
 canvas = document.getElementById("myCanvas");
 ctx = canvas.getContext("2d");
 
+//Called by run
 function redrawAll() {
 var blur = 10;
 var width = ctx.measureText(text).width + blur * 2;
@@ -480,6 +521,7 @@ ctx.textAlign = "center";
 ctx.fillText(text.txt, text.x, text.y);
 }
 
+//Draws text on canvas
 function run () {
 	ctx.clearRect(0, 0, 2000, 1000);
 	if (text.x +70>canvas.width) {
@@ -520,42 +562,46 @@ for(var i = 0; i < 50; i++)
 
 function Particle(){
 
-	this.x = 350;
+	this.x = 300;
 	this.y = 40;
 	this.vx = 0;
 	this.vy=0;
 }
 	
-	Particle.prototype.setVelocity = function(){
+Particle.prototype.setVelocity = function(){
 	this.vx = Math.random()*20-5;
 	this.vy = Math.random()*20-5;
 }
 
-	Particle.prototype.move = function(){
+//Moves x and y pos
+Particle.prototype.move = function(){
 	this.x += this.vx;
 	this.y += this.vy;
 }
-	
-	Particle.prototype.setSize = function(){
+
+//Sets Size	
+Particle.prototype.setSize = function(){
 	this.radius = Math.random()*5+5;
 }
 
+//Inheritance
 function coloredParticle(){
 	Particle.call(this);
 }
-	coloredParticle.prototype = new Particle();
 
-	coloredParticle.prototype.setColors = function(){
+coloredParticle.prototype = new Particle();
+
+//Sets a random color for particles
+coloredParticle.prototype.setColors = function(){
 	var r = Math.random()*255>>0;
 	var g = Math.random()*255>>0;
 	var b = Math.random()*255>>0;
 	this.color = "rgba("+r+", "+g+", "+b+", 0.5)";
 }
 
-
 var x = 100; var y = 50;
 
-
+//Draws particles and makes them move
 function draw()
 {
 	ctx.clearRect(0, 0, 2000, 1000);

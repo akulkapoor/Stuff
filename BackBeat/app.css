@@ -24,6 +24,7 @@ body{
 	color: black;
 	text-align: center;
 	margin:0px;
+	font: 0.7em Arial, sans-serif; 
 }
 
 h1{
@@ -179,7 +180,7 @@ img:active {
 	position: absolute;
 	float:left;
 	display: inline-block;
-	z-index: 1;
+	z-index: -1;
 }
 
 #logo {
@@ -188,4 +189,69 @@ img:active {
 	height: 25px;
 	float: right;
 	margin-right: 60px;
+}
+
+.menu { padding: 0; 
+	width:620px; 
+	margin: 0; 
+	margin-top: 20px; 
+	display: inline-block; 
+	float: left;
+	font-size: 15px;
+}
+
+.menu li { 
+	display: inline; 
+}
+
+.menu li a { 
+	background: rgba(255, 255, 255, 0.8); 
+	padding: 10px; 
+	float:left; 
+	border-right: 1px solid white;
+	border-bottom: none; 
+	text-decoration: none; 
+	color: #000;
+}
+
+.menu li.active a { 
+	background: rgba(0, 0, 0, 0.6); 
+	font-style:italic; 
+	color: white;
+}
+
+.content { 
+	float: left; 
+	border: 1px solid #000000; 
+	background: rgba(0, 0, 0, 0.6); 
+	padding: 10px 20px 20px; 
+	width: 554px; 
+	margin-top: 0px;
+}
+
+#picture{
+	float: right;
+	width: 800px;
+	height: 735px;
+	margin-top: 0px;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+#picture.hidden{
+	visibility:hidden;
+	opacity: 0;
+	clear: both;
+}
+
+#picture.show{
+	visibility:visible;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-top: 20px;
+	color: white;
+	font-size: 25px;
+	text-align: center;
+	line-height: 30px;
+	text-transform: uppercase;
+	border-radius: 10px;	
 }
