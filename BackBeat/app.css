@@ -1,8 +1,21 @@
-a:link {
-	text-decoration: none;
+a {
+	font-weight: bold;
 	text-transform: uppercase;
+	color: white;
 }
 
+a:visited {
+	color: #FFFFFF;
+}
+
+#picture a:link {
+	font-size: 10px;
+}
+
+#picture #page {
+	font-size: 10px;
+	text-decoration: underline;
+}
 
 body{
 	background-image:url("Background.png");
@@ -19,7 +32,7 @@ h1{
 	font-family:'Lucida Grande', sans-serif;
 	font-weight: normal;
 	color:white;
-	background: rgba(0,0,0,0.7);
+	background: rgba(0,0,0,0.5);
 	margin-top: 0px;
 }
 
@@ -44,22 +57,18 @@ h1{
     transition: all 0.7s ease 0s;
     outline: none;
     left: 50%;
-    margin-right:510px;
     }
 
 #search input[type="text"]:focus {
     width: 300px;
     }
 
-#search input[type="button"] {
-    margin-right: 540px;
-    }
 
 .content {
 	padding-top: 50px;
 	font-size: 25px;
 	overflow: auto;
-	max-height: 600px;
+	max-height: 700px;
 }
 
 .content .artist {
@@ -105,6 +114,10 @@ h1{
 	top: 32px;
 }
 
+.info {
+	text-transform: none;
+}
+
 .info #head{
 	margin-top: 20px;
 	display: inline-block;
@@ -118,10 +131,9 @@ h1{
 	display: inline-block;
 	font-size: 12px;
 	line-height: 20px;
-	text-transform: none;
 	max-width: 200px;
 	overflow: auto;
-	max-height: 200px;
+	max-height: 250px;
 	float: left;
 	margin-left: 20px;
 	padding-right: 20px;
@@ -150,11 +162,25 @@ h1{
 	width: 250px;
 	height: 400px;
 	float: right;
-	padding-top: 40px;
+	padding-top: 20px;
 	margin-right: 40px;
 }
 
+.info {
+	margin-top: -20px;
+}
+
 #myCanvas {
+	position: absolute;
 	float:left;
 	display: inline-block;
+	z-index: 1;
+}
+
+#logo {
+	display: inline;
+	width: 50px;
+	height: 25px;
+	float: right;
+	margin-right: 60px;
 }

@@ -47,13 +47,14 @@ var player ='<div id="skin-loader"></div> \
 		</div><!-- .wrapper -->';
 
 var text = new Object();
-text.txt = "Click Here to Play";
+text.txt = "";
 text.x = 200;
 text.y = 40;
-text.xVel = 2;
-text.yVel = 1;
+text.xVel = 1;
+text.yVel = 0;
 var name;
 onReady = function() {
+	setInterval(run, 50);
 	var info = document.createElement("div");
 	info.setAttribute("id","info");
 	$('#picture').append(player);
@@ -73,13 +74,20 @@ onReady = function() {
 		name = $(this).attr("band");
 		var object = $(this);
 		var small = $(this).attr("src");
+		var link = $(this).attr("link");
 		setInfo(object,band);
 		var startLeft = $(this).offset().left;
 		var startTop = $(this).offset().top;
 		var startWidth = $(this).width();
 		var startHeight = $(this).height();
 		$('#picture').append(band +"<br>");
-		$('#picture').append("<img id=bigPic" + ">");
+		$('#picture').append("<img id=bigPic" + ">" + "<br>");
+		if (link.slice(0,7) !== "http://") {
+			$('#picture').append("<div id = page><a href='http://" + link + "'>" + "Last FM Page" + "</a>" + "</div>");
+		}
+		else {
+			$('#picture').append("<div id = page><a href='" + link + "'>" + "Last FM Page" + "</a>" + "</div>");
+		}
 		$('#picture').append(player);
 		$("#bigPic").css("opacity",0);
 		$('#bigPic').attr("src", big);
@@ -125,12 +133,19 @@ onReady = function() {
 		var small = $(this.innerHTML).attr("src");
 		var parent = this.parentNode;
 		var small = $(parent).find("img").attr("src");
+		var link = $(this.innerHTML).attr("link");
 		var startLeft = $(parent).find("img").offset().left;
 		var startTop = $(parent).find("img").offset().top;
 		var startWidth = $(parent).find("img").width();
 		var startHeight = $(parent).find("img").height();
 		$('#picture').append(band +"<br>");
-		$('#picture').append("<img id=bigPic" + ">");
+		$('#picture').append("<img id=bigPic" + ">" + "<br>");
+		if (link.slice(0,7) !== "http://") {
+			$('#picture').append("<div id = page><a href='http://" + link + "'>" + "Last FM Page" + "</a>" + "</div>");
+		}
+		else {
+			$('#picture').append("<div id = page><a href='" + link + "'>" + "Last FM Page" + "</a>" + "</div>");
+		}
 		$('#picture').append(player);
 		$("#bigPic").css("opacity",0);
 		$('#bigPic').attr("src", big);
@@ -174,8 +189,8 @@ setInfo = function(object,band) {
 			function(data) {
 				var info = document.createElement("div");
 				info.className = "info";
-				if (data.artist  === undefined) {
-					info.innerHTML = object.attr("city") + "<br>" + object.attr("country") + "<br>" + object.attr("theatre");
+				if (object.attr("city")  !== undefined) {
+					info.innerHTML = "<br>" + object.attr("city") + "<br>" + object.attr("country") + "<br>" + object.attr("theatre") + "<br>" + object.attr("date");
 				}
 				
 				else {
@@ -195,7 +210,6 @@ setInfo = function(object,band) {
 }
 
 		doSearch = function() {
-			setInterval(run, 50);
 			text.txt = $("#artistSearch").val();
 			$('#picture').html('')
 			simArts();
@@ -203,14 +217,12 @@ setInfo = function(object,band) {
 			allShows();
 			$("#picture").attr('class', 'hidden');
 
-			
-
-
 	}
 
 getSong = function(name){
-
-
+	if (name.indexOf(",") > 0) {
+		name = name.slice(0,name.indexOf(","));
+	}
 	$.ajax({
 		url: 'http://hkr.me:8001/?url=' + encodeURIComponent('http://developer.echonest.com/api/v4/song/search?api_key=N6E4NIOVYMTHNDM8J&format=json&results=5&artist=' + name + '&bucket=id:7digital-US&bucket=audio_summary&bucket=tracks') + "&jsonp=?",
 		dataType: "json",
@@ -269,6 +281,7 @@ var data1;
 
 			function(data) {
 				data1 = data;
+				console.log(data1);
 				$("#shows").html("");
 
 
@@ -281,18 +294,18 @@ var data1;
 
 						var img = document.createElement("div");
 						img.className = "img";
-						img.innerHTML = "<img src='" + item.image[3]["#text"] + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name + "'>"
+						img.innerHTML = "<img src='" + item.image[3]["#text"] + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name + "' link='" + item.url + "' date='" + item.startDate + "'>"
 
 						var link = document.createElement("div");
 						link.className = "link";
-						/*if (item.url.slice(0,7) !== "http://") {
+						if (item.url.slice(0,7) !== "http://") {
 							link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.artists.artist + "</a>";
 							//link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.artists.artist + "</a>";
 						}
 						else {
 							link.innerHTML = "<a href='" + item.url + "'>" + item.artists.artist + "</a>";
-						}*/
-						link.innerHTML = "<div id='" + item.artists.artist  + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name+ "'>" + item.artists.artist + "</div>";
+						}
+						link.innerHTML = "<div id='" + item.artists.artist  + "' data-big=" + item.image[3]["#text"] + " band='" + item.artists.artist + "' city='" + item.venue.location.city + "'" + " country='" + item.venue.location.country + "'" + " theatre='" + item.venue.name+ "' link='" + item.url + "' date='" + item.startDate + "'>" + item.artists.artist + "</div>";
 						artist.appendChild(link);
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
@@ -332,18 +345,11 @@ var data1;
 
 						var img = document.createElement("div");
 						img.className = "img";
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>"
+						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "' link='" +item.url +"'>"
 
 						var link = document.createElement("div");
 						link.className = "link";
-						//if (item.url.slice(0,7) !== "http://") {
-							//link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
-						link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</div>";
-						//}
-						//else {
-							//link.innerHTML = "<a href='" + item.url + "'>" + item.name + "</a>";
-						//	link.innerHTML = "<div id=" + item.name  + " data-big=" + item.image[4]["#text"] + " band='" + item.name +">" + item.name + "</div>";
-						//}
+						link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "' link='" +item.url + "'>" + item.name + "</div>";
 						artist.appendChild(link);
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
@@ -399,18 +405,11 @@ var data2;
 
 						var img = document.createElement("div");
 						img.className = "img";
-						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>"
+						img.innerHTML = "<img src=" + item.image[3]["#text"] + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "' link='" +item.url +"'>"
 
 						var link = document.createElement("div");
 						link.className = "link";
-						/*if (item.url.slice(0,7) !== "http://") {
-							link.innerHTML = "<a href='" + item.url + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</a>";
-							//link.innerHTML = "<a href='" + "http://" + item.url + "'>" + item.name + "</a>";
-						}
-						else {
-							link.innerHTML = "<a href='" + item.url + " data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</a>";
-						}*/
-						link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "'>" + item.name + "</div>";
+						link.innerHTML = link.innerHTML = "<div id='" + item.name  + "' data-big=" + item.image[4]["#text"] + " band='" + item.name + "' link='" +item.url + "'>" + item.name + "</div>";
 						artist.appendChild(link);
 						artist.appendChild(img);
 						artist.innerHTML += "<br>"
@@ -430,10 +429,17 @@ canvas = document.getElementById("myCanvas");
 ctx = canvas.getContext("2d");
 
 function redrawAll() {
-	ctx.font = "25px Lucida Grande";
-	ctx.fillStyle = "white";
-	ctx.textAlign = "center";
-	ctx.fillText(text.txt, text.x, text.y);
+var blur = 10;
+var width = ctx.measureText(text).width + blur * 2;
+ctx.textBaseline = "top"
+ctx.shadowColor = "#606060"
+ctx.shadowOffsetX = 10;
+ctx.shadowOffsetY = 10;
+ctx.font = "25px Lucida Grande";
+ctx.shadowBlur = blur;
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.fillText(text.txt, text.x, text.y);
 }
 
 function run () {
@@ -448,9 +454,9 @@ function run () {
 	}
 	text.x += text.xVel;
 
-	if (text.y +15>canvas.height) {
+	if (text.y +30>canvas.height) {
 	text.yVel = text.yVel*(-1);
-	text.y = canvas.height-15;
+	text.y = canvas.height-30;
 	}
 	if (text.y<20) {
 	text.yVel = text.yVel*(-1);

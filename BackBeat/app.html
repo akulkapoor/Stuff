@@ -8,35 +8,33 @@
 	<link href="app.css" rel="stylesheet" type="text/css"/>
 			<style type="text/css" media="screen">
 			body { font: 0.7em Arial, sans-serif; }
-			.menu { padding: 0; width:620px; margin: 0; margin-top: 20px; display: inline-block; float: left;}
+			.menu { padding: 0; width:620px; margin: 0; margin-top: 20px; display: inline-block; float: left;font-size: 15px;}
 			.menu li { display: inline; }
 			.menu li a { background: rgba(255, 255, 255, 0.8); padding: 10px; float:left; border-right: 1px solid white; border-bottom: none; text-decoration: none; color: #000;}
 			.menu li.active a { background: rgba(0, 0, 0, 0.6); font-style:italic; color: white;}
-			.content { float: left; border: 1px solid #000000; background: rgba(0, 0, 0, 0.6); padding: 10px 20px 20px; width: 584px; margin-top: 0px;}
-			#picture.hidden{
-				visibility:hidden;
+			.content { float: left; border: 1px solid #000000; background: rgba(0, 0, 0, 0.6); padding: 10px 20px 20px; width: 554px; margin-top: 0px;}
+			#picture{
 				float: right;
-				width: 700px;
-				opacity: 0;
-				height: 700px;
-				clear: both;
+				width: 800px;
+				height: 735px;
 				margin-top: 0px;
 				background: rgba(0, 0, 0, 0.6);
 			}
+			#picture.hidden{
+				visibility:hidden;
+				opacity: 0;
+				clear: both;
+			}
 			#picture.show{
 				visibility:visible;
-				float: right;
-				width: 700px;
 				padding-top: 20px;
 				padding-bottom: 20px;
 				margin-top: 20px;
-				background: rgba(0, 0, 0, 0.6);
 				color: white;
 				font-size: 25px;
 				text-align: center;
 				line-height: 30px;
 				text-transform: uppercase;
-				height: 650px;
 				border-radius: 10px;	
 			}
 		</style>
@@ -45,95 +43,11 @@
 <script type="text/javascript" src="js/demo.js"></script>
 <script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
 <script type="text/javascript" src="js/jplayer.playlist.min.js"></script>
-<script type="text/javascript">
-		//<![CDATA[
-		$(document).ready(function(){
-		
-			new jPlayerPlaylist({
-				jPlayer: "#jquery_jplayer_1",
-				cssSelectorAncestor: "#jp_container_1"
-			}, [
-				{
-					title:"Cro Magnon Man",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-01-Cro_magnon_man.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-01-Cro_magnon_man.ogg"
-				},
-				{
-					title:"Your Face",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-05-Your_face.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-05-Your_face.ogg"
-				},
-				{
-					title:"Cyber Sonnet",
-					mp3:"http://www.jplayer.org/audio/mp3/TSP-07-Cybersonnet.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/TSP-07-Cybersonnet.ogg"
-				},
-				{
-					title:"Tempered Song",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-01-Tempered-song.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-01-Tempered-song.ogg"
-				},
-				{
-					title:"Hidden",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-02-Hidden.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg"
-				},
-				{
-					title:"Lentement",
-					free:true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-03-Lentement.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-03-Lentement.ogg"
-				},
-				{
-					title:"Lismore",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-04-Lismore.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-04-Lismore.ogg"
-				},
-				{
-					title:"The Separation",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-05-The-separation.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-05-The-separation.ogg"
-				},
-				{
-					title:"Beside Me",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-06-Beside-me.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-06-Beside-me.ogg"
-				},
-				{
-					title:"Bubble",
-					free:true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
-				},
-				{
-					title:"Stirring of a Fool",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-08-Stirring-of-a-fool.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-08-Stirring-of-a-fool.ogg"
-				},
-				{
-					title:"Partir",
-					free: true,
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-09-Partir.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-09-Partir.ogg"
-				},
-				{
-					title:"Thin Ice",
-					mp3:"http://www.jplayer.org/audio/mp3/Miaow-10-Thin-ice.mp3",
-					oga:"http://www.jplayer.org/audio/ogg/Miaow-10-Thin-ice.ogg"
-				}
-			], {
-				swfPath: "js",
-				supplied: "oga, mp3",
-				wmode: "window"
-			});
-		});
-		//]]>
-		</script>
 </head>
 
 <body>
-	<h1>What would you like to hear?</h1>
-
+	<h1>What would you like to hear?
+	<img src = "BackBeatLogoEdited3.png" id = "logo"></h1>
 	<div id="search">
 	<canvas id="myCanvas" width="570" height="80">
 	</canvas>
@@ -149,7 +63,7 @@
 		<li class="active"><a href="#similarArtists">Similar Artists</a></li>
 		<li><a href="#similarLocalArtists">Similar Local Artists</a></li>
 		<li><a href="#shows">All Upcoming Shows</a></li>
-		<li><a href="#showsFiltered">Select Upcoming Shows</a></li>
+		<!--<li><a href="#showsFiltered">Select Upcoming Shows</a></li>-->
 	</ul>
 
 
@@ -222,8 +136,8 @@
 	<div id="shows" class="content">
 	</div>
 
-	<div id="showsFiltered" class="content">
-	</div>
+	<!--<div id="showsFiltered" class="content">
+	</div>-->
 	<div id = "song" ></div>
 
 
